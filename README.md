@@ -9,12 +9,12 @@ This repository helps you understand your mortgage and potentially save money.  
 Please note this does not account for variable rates, which can change.
 
 $$
-    r = interest\_rate/12 
+r = interest\\_rate/12
 $$
 
 
 $$
-    n = \text {Number of payments in total (total\_installments)}
+n = \text {Number of payments in total}  (total\\_installments)
 $$
 
 
