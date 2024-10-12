@@ -26,7 +26,7 @@ $$
 ## Scripts available
 
 - ```mortgage-calculator.ipynb``` calculates how much of your mortgage payments go towards interest and how much goes towards building equity (ownership) in your home. It's designed for mortgages with fixed payments, not those with early repayment options.
-- ```mortgage-calculator-with-one-off-payments.ipynb``` calculates your mortgage payments based on one-off payments.
+- ```mortgage-calculator-with-one-off-payments.ipynb``` calculates your mortgage payments based on one-off payments. Helps you understanding how much you will save with one-off repayments.
 
 
 ## Scripts to develop
