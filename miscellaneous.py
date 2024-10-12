@@ -31,3 +31,23 @@ def denormalise_interest_rate(interest_rate:float)->float:
     if interest_rate <= 0.25: # we need to convert it
         interest_rate=interest_rate*100
     return interest_rate
+
+def convert_recurring_repayments(periods:list)->dict:
+    """Converts the recurring repayments from list of periods to a dictionary that expresses the repayments over the months"""
+    repayments_adj = {month:period["amount_paid"] for period in periods for month in range(period["start"],period["end"]+1)}
+    return repayments_adj
+
+def check_recurring_repayments(periods:list)->bool:
+    """Checks whether there are overlapping periods in the recurring payments"""
+    periods = [period for period in sorted(periods, key=lambda item: item["start"])] #sorting
+    len_periods = len(periods)
+    for idx in range(len_periods):
+        if periods[idx]["start"] > periods[idx]["end"]:
+            print(f"ERROR: For a time period set in repayments the end date (Month {periods[idx]['end']}) preceeds the start date (Month {periods[idx]['start']})")
+            return False
+        if idx < len_periods-1:
+            if periods[idx+1]["start"] <= periods[idx]["end"]:
+                print(f"ERROR: There is a clash between repayment periods. A new period starts (Month {periods[idx+1]['start']}) before another ends (Month {periods[idx]['end']})")
+                return False
+    
+    return True

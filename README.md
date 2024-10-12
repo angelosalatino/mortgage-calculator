@@ -27,10 +27,9 @@ $$
 
 - ```mortgage-calculator.ipynb``` calculates how much of your mortgage payments go towards interest and how much goes towards building equity (ownership) in your home. It's designed for mortgages with fixed payments, not those with early repayment options.
 - ```mortgage-calculator-with-one-off-payments.ipynb``` calculates your mortgage payments based on one-off payments. Helps you understanding how much you will save with one-off repayments.
+- ```mortgage-calculator-with-recurring-early-payments.ipynb``` calculates your mortgage payments based on recurring increased repayments. Helps you understanding how much you will save with recurring repayments.
 
 
 ## Scripts to develop
 
-- script for calculating the mortgage through one-off early repayment
-- script for calculating the mortgage through monthly repayments (more than you are supposed to pay monthly)
 - script to track re-mortgaging (i.e., different interest rates are applied through the process)
