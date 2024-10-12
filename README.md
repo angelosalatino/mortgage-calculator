@@ -14,7 +14,7 @@ $$
 
 
 $$
-n = \text {Number of payments in total}  (total\\_installments)
+n = \text {Number of payments in total}  (total\\_instalments)
 $$
 
 
