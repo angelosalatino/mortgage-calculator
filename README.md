@@ -1,13 +1,12 @@
 # Mortgage Calculator
 
 
-This repository contains a set of script that can help you navigate the complex world of mortgages.
-Understand where your money go (i.e., equity vs. interests) and perhaps help you optimise your equity over the interests.
+This repository helps you understand your mortgage and potentially save money.  It breaks down your payments to show how much goes towards your loan balance (equity) versus interest, so you can explore ways to pay off your mortgage faster and reduce interest costs.
 
 
 ## Scripts available
 
-- ```mortgage-calculator.ipynb``` calculates the amount of interests and equity earned through the variosu installments. This is useful is you don't perform early repayments
+- ```mortgage-calculator.ipynb``` calculates how much of your mortgage payments go towards interest and how much goes towards building equity (ownership) in your home. It's designed for mortgages with fixed payments, not those with early repayment options.
 
 
 ## Scripts to develop
