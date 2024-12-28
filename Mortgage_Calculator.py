@@ -73,10 +73,14 @@ def calculate(mortgage_amount:int, interest_rate:float, mortgage_period:int, tot
 def main():
     ### WEBAPP
     
-    st.title('Calculate and Analyse your Mortgage')    
+    st.title('Calculate and Analyse your Mortgage')  
     
+
+        
     # Sidebar content
     with st.sidebar:
+            
+        st.divider()
         with st.form("settings"):
             # Using object notation
             st.title('Settings')
@@ -87,16 +91,17 @@ def main():
                 "Currency",
                 ("£", "€", "$")
             )
+            
+            on = st.toggle("Overpayments")
+
+            if on:
+                st.write("Feature activated!")
+            
             submitted = st.form_submit_button("Submit")
 
     
     
-    # Main content 
-    st.write('## Mortgage Payment Formula')
-    st.write('Please note this does not account for variable rates, which can change.')
-    st.latex(r'''r = \text {interest rate}/12''')
-    st.latex(r'''n = \text {Number of payments in total (total\_instalments)}''')
-    st.latex(r'''\text {Monthly Payment }= \text { Mortgage Amount}\frac{r(1+r)^n}{(1+r)^n-1}''')
+
     
     
     if submitted:
