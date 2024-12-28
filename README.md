@@ -33,3 +33,11 @@ $$
 ## Scripts to develop
 
 - script to track re-mortgaging (i.e., different interest rates are applied through the process)
+
+
+
+## Streamlit use
+
+Run
+
+```streamlit run Mortgage_Calculator.py```
