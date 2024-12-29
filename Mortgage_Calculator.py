@@ -80,24 +80,85 @@ def main():
     # Sidebar content
     with st.sidebar:
             
-        st.divider()
-        with st.form("settings"):
-            # Using object notation
-            st.title('Settings')
-            mortgage_amount = st.text_input(f"Mortgage Amount", "250000")
-            interest_rate   = st.text_input("Interest Rate (%)", "3.4")
-            mortgage_period = st.text_input("Mortgage Period (in years)", "30")
+        data = dict()
+        # Using object notation
+        st.title('Initial Settings')
+        mortgage_amount = st.text_input(f"Mortgage Amount", "250000")
+        currency_toggle = st.toggle("Not in British Sterling (£)?")
+        currency = "£"
+        if currency_toggle:
             currency = st.selectbox(
                 "Currency",
                 ("£", "€", "$")
             )
-            
-            on = st.toggle("Overpayments")
 
-            if on:
-                st.write("Feature activated!")
             
-            submitted = st.form_submit_button("Submit")
+        interest_rate   = st.text_input("Interest Rate (%)", "3.4")
+        mortgage_period = st.text_input("Mortgage Period (in years)", "30")
+        st.divider()
+        
+        over_toggle = st.toggle("One-off lump sum overpayments?")
+
+        if over_toggle:
+            st.title('One-off Overpayment')
+            
+            if 'dataop' not in st.session_state:
+                dataop = pd.DataFrame({'Payment':[],'Month':[]})
+                st.session_state.dataop = dataop
+            
+            dataop = st.session_state.dataop
+            
+            st.dataframe(dataop)
+            
+            def add_dfForm():
+                row = pd.DataFrame({'Payment':[st.session_state.input_colA],
+                        'Month':[st.session_state.input_colB]})
+                st.session_state.dataop = pd.concat([st.session_state.dataop, row])
+            
+            
+            dfForm = st.form(key='dfForm')
+            with dfForm:
+                dfColumns = st.columns(2)
+                with dfColumns[0]:
+                    st.text_input('Payment', key='input_colA')
+                with dfColumns[1]:
+                    st.text_input('Month', key='input_colB')
+                st.form_submit_button(label="Add payment",on_click=add_dfForm)
+                
+            st.divider()
+            
+        mon_over_toggle = st.toggle("Montly overpayments?")
+
+        if mon_over_toggle:
+            st.title('Monthly Overpayments')
+            if 'datamop' not in st.session_state:
+                datamop = pd.DataFrame({'Payment':[],'Start Month':[],'End Month':[]})
+                st.session_state.datamop = datamop
+            
+            datamop = st.session_state.datamop
+            
+            st.dataframe(datamop)
+            
+            def add_dfForm_mon():
+                row = pd.DataFrame({'Payment':[st.session_state.input_colAmo],
+                        'Start Month':[st.session_state.input_colBmo],
+                        'End Month':[st.session_state.input_colCmo]})
+                st.session_state.datamop = pd.concat([st.session_state.datamop, row])
+            
+            
+            dfForm_mon = st.form(key='dfForm_mon')
+            with dfForm_mon:
+                dfColumns = st.columns(3)
+                with dfColumns[0]:
+                    st.text_input('Payment', key='input_colAmo')
+                with dfColumns[1]:
+                    st.text_input('Start Month', key='input_colBmo')
+                with dfColumns[2]:
+                    st.text_input('End Month', key='input_colCmo')
+                st.form_submit_button(label="Add monthly payments",on_click=add_dfForm_mon)
+        
+        submitted = st.button("Calculate")
+            
 
     
     
@@ -105,6 +166,10 @@ def main():
     
     
     if submitted:
+        
+        
+        
+        
         # casting values
         mortgage_amount = int(mortgage_amount)
         mortgage_period = int(mortgage_period)
@@ -118,7 +183,10 @@ def main():
         st.write(f"Total amount borrowed {currency}{clean(mortgage_amount)}, with and interest rate of {clean(denormalise_interest_rate(interest_rate))}, and a repayment over {mortgage_period} ({mortgage_period*12} instalments)")
         st.write(f"Montly payments set to {currency}{clean(monthly_payment)}")
         st.write(f"Total payments {currency}{clean(total_given)}")
-        st.write(f"For each \{currency}1 borrowed you are will pay back \{currency}{clean(total_given/mortgage_amount)}")
+        if currency == "$":
+            st.write(f"For each \{currency}1 borrowed you are will pay back \{currency}{clean(total_given/mortgage_amount)}")
+        else:
+            st.write(f"For each {currency}1 borrowed you are will pay back {currency}{clean(total_given/mortgage_amount)}")
         
         table = calculate(mortgage_amount, interest_rate, mortgage_period, total_instalments)
         st.write("### Monthly instalments")
