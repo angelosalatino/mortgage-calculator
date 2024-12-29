@@ -4,6 +4,15 @@ import streamlit as st
 import time
 import numpy as np
 
+def local(file_name):
+    with open(file_name) as f:
+        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+
+def remote(url):
+    st.markdown(f'<link href="{url}" rel="stylesheet">', unsafe_allow_html=True)
+    
+local('assets/css/bootstrap.min.css')
+
 st.title('Calculate and Analyse your Mortgage') 
 
 # Main content 
