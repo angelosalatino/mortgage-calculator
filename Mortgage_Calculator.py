@@ -250,7 +250,7 @@ def main():
         ######################### 
         
         # casting values
-        mortgage_amount = int(mortgage_amount)
+        mortgage_amount = float(mortgage_amount)
         mortgage_period = int(mortgage_period)
         interest_rate   = float(interest_rate)
         
